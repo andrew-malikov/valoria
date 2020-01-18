@@ -1,0 +1,18 @@
+{
+  "name": "@habitoria/habitica-api",
+  "version": "0.1.0",
+  "description": "a Habitica client library",
+  "main": "./lib/index.js",
+  "module": "./lib-esm/index.js",
+  "types": "./lib/index.d.ts",
+  "author": "markupcode",
+  "license": "MIT",
+  "scripts": {
+    "lib-build": "tsc && tsc --build tsconfig.esm.json"
+  },
+  "peerDependencies": {},
+  "devDependencies": {
+    "@types/node": "^13.1.8",
+    "typescript": "^3.6.4"
+  }
+}
