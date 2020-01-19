@@ -1,11 +1,9 @@
 {
-  "exclude": ["node_modules", "lib-esm", "lib"],
-  "include": [
-    "src"
-  ],
-  "extends": "../../tsconfig.json",
-  "compilerOptions": {
-    "outDir": "lib",
-    "declaration": true
-  }
+    "exclude": ["node_modules", "lib-esm", "lib"],
+    "include": ["src"],
+    "extends": "../../tsconfig.json",
+    "compilerOptions": {
+        "outDir": "lib",
+        "declaration": true
+    }
 }

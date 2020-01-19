@@ -1,21 +1,22 @@
 {
-  "name": "@habitoria/habitica-api",
-  "version": "0.1.0",
-  "description": "a Habitica client library",
-  "main": "./lib/index.js",
-  "module": "./lib-esm/index.js",
-  "types": "./lib/index.d.ts",
-  "author": "markupcode",
-  "license": "MIT",
-  "scripts": {
-    "lib-build": "tsc && tsc --build tsconfig.esm.json"
-  },
-  "peerDependencies": {
-    "got": "^10.2.2",
-    "fp-ts": "^2.4.1"
-  },
-  "devDependencies": {
-    "@types/node": "^13.1.8",
-    "typescript": "^3.7.5"
-  }
+    "name": "@habitoria/habitica-api",
+    "version": "0.1.0",
+    "description": "a Habitica client library",
+    "main": "./lib/index.js",
+    "module": "./lib-esm/index.js",
+    "types": "./lib/index.d.ts",
+    "author": "markupcode",
+    "license": "MIT",
+    "scripts": {
+        "lib-build": "tsc && tsc --build tsconfig.esm.json"
+    },
+    "peerDependencies": {
+        "fp-ts": "^2.4.1",
+        "got": "^10.2.2",
+        "rest-api-url-builder": "^1.2.2"
+    },
+    "devDependencies": {
+        "@types/node": "^13.1.8",
+        "typescript": "^3.7.5"
+    }
 }
