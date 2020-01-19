@@ -67,3 +67,7 @@ lib
 lib-esm
 
 *.tsbuildinfo
+
+# additional configs
+.vscode/
+.idea/

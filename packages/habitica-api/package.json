@@ -10,9 +10,12 @@
   "scripts": {
     "lib-build": "tsc && tsc --build tsconfig.esm.json"
   },
-  "peerDependencies": {},
+  "peerDependencies": {
+    "got": "^10.2.2",
+    "fp-ts": "^2.4.1"
+  },
   "devDependencies": {
     "@types/node": "^13.1.8",
-    "typescript": "^3.6.4"
+    "typescript": "^3.7.5"
   }
 }
