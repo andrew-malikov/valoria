@@ -2,6 +2,9 @@ import { Option, map, flatten } from 'fp-ts/lib/Option';
 
 export type ParticularHandle<T> = (data: T) => Option<T>;
 
+/**
+ * With reversing the order of applying handlers
+ */
 export function chain<T>(handle: ParticularHandle<T>, ...rest: ParticularHandle<T>[]): ParticularHandle<T> {
     return (data: T): Option<T> => {
         const processedResult = handle(data);

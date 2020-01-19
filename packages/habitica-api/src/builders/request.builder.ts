@@ -1,11 +1,13 @@
-import { GotOptions } from 'got';
-
-import { UserAuth } from '../models/user-auth';
-import { ParticularHandle } from '../infrastructure/chains';
 import { some, Option } from 'fp-ts/lib/Option';
+import { Options } from 'got';
 
-export function applyAuthHeaders(auth: UserAuth): ParticularHandle<GotOptions> {
-    return (options: GotOptions): Option<GotOptions> =>
+import { UserAuth } from '../models/auth/user-auth';
+import { AppAuth } from '../models/auth/app-auth';
+
+import { ParticularHandle } from '../infrastructure/chains';
+
+export function applyAuthHeaders(auth: UserAuth): ParticularHandle<Options> {
+    return (options: Options): Option<Options> =>
         some({
             ...options,
             headers: {
@@ -16,7 +18,11 @@ export function applyAuthHeaders(auth: UserAuth): ParticularHandle<GotOptions> {
         });
 }
 
-export function applyClientId(clientId: string): ParticularHandle<GotOptions> {
-    return (options: GotOptions): Option<GotOptions> =>
-        some({ ...options, headers: { ...options.headers, 'x-client': clientId } });
+export function applyAppAuth(auth: AppAuth): ParticularHandle<Options> {
+    return (options: Options): Option<Options> =>
+        some({ ...options, headers: { ...options.headers, 'x-client': `${auth.developerId}-${auth.clientId}` } });
+}
+
+export function disableRetry(): ParticularHandle<Options> {
+    return (options: Options): Option<Options> => some({ ...options, retry: 0 });
 }
