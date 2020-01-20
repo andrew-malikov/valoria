@@ -6,7 +6,7 @@ import { AppAuth } from '../models/auth/app-auth';
 
 import { ParticularHandle } from '../infrastructure/chains';
 
-export function applyAuthHeaders(auth: UserAuth): ParticularHandle<Options> {
+export function applyUserAuth(auth: UserAuth): ParticularHandle<Options> {
     return (options: Options): Option<Options> =>
         some({
             ...options,
