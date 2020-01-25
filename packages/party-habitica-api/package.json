@@ -1,5 +1,5 @@
 {
-    "name": "@habitoria/habitica-api",
+    "name": "@party/habitica-api",
     "version": "0.1.0",
     "description": "a Habitica client library",
     "main": "./lib/index.js",
