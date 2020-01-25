@@ -1,0 +1,20 @@
+{
+    "name": "@domain/persistence",
+    "version": "0.1.0",
+    "description": "a Persistence layer for Valoria",
+    "main": "./lib/index.js",
+    "module": "./lib-esm/index.js",
+    "types": "./lib/index.d.ts",
+    "author": "markupcode",
+    "license": "MIT",
+    "scripts": {
+        "lib-build": "tsc && tsc --build tsconfig.esm.json"
+    },
+    "peerDependencies": {
+        "fp-ts": "^2.4.1"
+    },
+    "devDependencies": {
+        "@types/node": "^13.1.8",
+        "typescript": "^3.7.5"
+    }
+}
