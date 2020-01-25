@@ -14,3 +14,5 @@ export interface Habit {
     readonly originalId: string;
     readonly wasDeleted: boolean;
 }
+
+export const HabitStaticKind = 'habit';

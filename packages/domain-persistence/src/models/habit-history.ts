@@ -6,3 +6,5 @@ export interface HabitHistory {
     readonly occured: Date;
     readonly value: number;
 }
+
+export const HabitHistoryStaticKind = 'history';
