@@ -1,8 +1,6 @@
-/**
- * @property hash - Hash of the password
- */
 export interface Password {
-    readonly hash: string;
+    readonly device: string;
+    readonly isActual: boolean;
 }
 
 export const PasswordStaticKind = 'password';

@@ -1,8 +1,8 @@
 /**
  * Represents Habitica habit
  *
- * @property originalId - ID related to Habitica Habit
- * @property wasDeleted - Indicate that the Habit was deleted from Habitica
+ * @property {string} originalId related to Habitica Habit
+ * @property {boolean} wasDeleted indicate that the Habit was deleted from Habitica
  */
 export interface Habit {
     readonly text: string;
