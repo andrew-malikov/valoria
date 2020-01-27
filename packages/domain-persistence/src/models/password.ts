@@ -1,5 +1,5 @@
 export interface Password {
-    readonly device: string;
+    readonly client: string;
     readonly isActual: boolean;
 }
 
