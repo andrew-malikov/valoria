@@ -1,4 +1,3 @@
-import { Option } from 'fp-ts/lib/Option';
 import { Datastore } from '@google-cloud/datastore';
 
 import { HabitStaticKind } from '../models/habit';
@@ -12,14 +11,14 @@ export function getHabitHistoriesKind(habitId: string): string[] {
     return [HabitStaticKind, habitId, HabitHistoryStaticKind];
 }
 
-export async function getAllHabitHistories(habitId: string, datastore: Datastore): Promise<Option<HabitHistory[]>> {
+export async function getAllHabitHistories(habitId: string, datastore: Datastore): Promise<HabitHistory[]> {
     return getMany<HabitHistory>(getHabitHistoriesKind(habitId), datastore);
 }
 
 export async function saveHabitHistory(
     history: { habitId: string; data: HabitHistory },
     datastore: Datastore,
-): Promise<Option<HabitHistory>> {
+): Promise<HabitHistory> {
     return save<HabitHistory>(getHabitHistoriesKind(history.habitId), history.data, datastore);
 }
 

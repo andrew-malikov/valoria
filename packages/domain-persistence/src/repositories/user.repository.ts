@@ -1,4 +1,3 @@
-import { Option } from 'fp-ts/lib/Option';
 import { Datastore } from '@google-cloud/datastore';
 
 import { User, UserStaticKind } from '../models/user';
@@ -8,11 +7,11 @@ export function getUserKind(name: string): string[] {
     return [UserStaticKind, name];
 }
 
-export async function getUser(userName: string, datastore: Datastore): Promise<Option<User>> {
+export async function getUser(userName: string, datastore: Datastore): Promise<User> {
     return get<User>(getUserKind(userName), datastore);
 }
 
-export async function saveUser(user: { name: string; data: User }, datastore: Datastore): Promise<Option<User>> {
+export async function saveUser(user: { name: string; data: User }, datastore: Datastore): Promise<User> {
     return save<User>(getUserKind(user.name), user.data, datastore);
 }
 

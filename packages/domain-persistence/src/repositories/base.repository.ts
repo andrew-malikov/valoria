@@ -1,4 +1,3 @@
-import { Option, some, none } from 'fp-ts/lib/Option';
 import { Datastore, Query } from '@google-cloud/datastore';
 import { entity } from '@google-cloud/datastore/build/src/entity';
 import { RunQueryOptions } from '@google-cloud/datastore/build/src/query';
@@ -10,22 +9,18 @@ export function getKey(kind: Kind, datastore: Datastore): entity.Key {
     return datastore.key(kind);
 }
 
-export async function get<T>(kind: Kind, datastore: Datastore): Promise<Option<T>> {
+export async function get<T>(kind: Kind, datastore: Datastore): Promise<T> {
     const key = datastore.key(kind);
 
-    return datastore
-        .get(key)
-        .then(([entity]) => some(entity))
-        .catch(() => none);
+    return new Promise((resolve, reject) =>
+        datastore.get(key).then(([entity]) => (entity ? resolve(entity) : reject('Nothing found by the kind'))),
+    );
 }
 
-export async function getMany<T>(kind: Kind, datastore: Datastore): Promise<Option<T[]>> {
+export async function getMany<T>(kind: Kind, datastore: Datastore): Promise<T[]> {
     const key = datastore.key(kind);
 
-    return datastore
-        .get(key)
-        .then(entities => some(entities))
-        .catch(() => none);
+    return datastore.get(key).then(entities => entities);
 }
 
 export type ReadyQuery<T> = (kind: Kind, datastore: Datastore, queryOptions: RunQueryOptions) => Promise<T>;
@@ -44,7 +39,7 @@ export function select<T>(setupQuery: (query) => Query): ReadyQuery<T> {
                 }
 
                 if (response.length > 1) {
-                    return reject('Found a lot of items by query');
+                    return reject('Found a lot of items by the query');
                 }
 
                 resolve(response[0]);
@@ -63,7 +58,7 @@ export function selectMany<T>(setupQuery: (query) => Query): ReadyQuery<T[]> {
     };
 }
 
-export async function save<T>(kind: Kind, data: T, datastore: Datastore): Promise<Option<T>> {
+export async function save<T>(kind: Kind, data: T, datastore: Datastore): Promise<T> {
     const key = datastore.key(kind);
 
     const requestToSave = {
@@ -71,10 +66,7 @@ export async function save<T>(kind: Kind, data: T, datastore: Datastore): Promis
         data: data,
     };
 
-    return datastore
-        .upsert(requestToSave)
-        .then(() => some(data))
-        .catch(() => none);
+    return datastore.upsert(requestToSave).then(() => data);
 }
 
 export async function saveMany<T>(entities: Array<{ kind: Kind; data: T }>, datastore: Datastore): Promise<boolean> {

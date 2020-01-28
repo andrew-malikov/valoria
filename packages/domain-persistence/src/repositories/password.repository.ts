@@ -1,4 +1,3 @@
-import { Option } from 'fp-ts/lib/Option';
 import { Datastore } from '@google-cloud/datastore';
 
 import { UserStaticKind } from '../models/user';
@@ -16,17 +15,14 @@ export function getPasswordsKind(userName: string): string[] {
     return [UserStaticKind, userName, PasswordStaticKind];
 }
 
-export async function getPassword(
-    key: { userName: string; hash: string },
-    datastore: Datastore,
-): Promise<Option<Password>> {
+export async function getPassword(key: { userName: string; hash: string }, datastore: Datastore): Promise<Password> {
     return get<Password>(getPasswordKind(key.userName, key.hash), datastore);
 }
 
 export async function savePassword(
     password: { userName: string; hash: string; data: Password },
     datastore: Datastore,
-): Promise<Option<Password>> {
+): Promise<Password> {
     return save<Password>(getPasswordKind(password.userName, password.hash), password.data, datastore);
 }
 
