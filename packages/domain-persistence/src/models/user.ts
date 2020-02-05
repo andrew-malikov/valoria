@@ -1,9 +1,9 @@
 /**
- * @property {string} salt to encrypt user data
+ * @property {string} key to encrypt user data
  */
 export interface User {
     readonly profile: { name: string };
-    readonly salt: string;
+    readonly key: string;
 }
 
 export const UserStaticKind = 'user';

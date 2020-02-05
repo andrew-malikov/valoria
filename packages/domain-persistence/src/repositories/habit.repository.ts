@@ -15,25 +15,38 @@ export function getHabitsKind(userName: string): string[] {
     return [UserStaticKind, userName, HabitStaticKind];
 }
 
-export async function getHabit(key: { userName: string; habitId: string }, datastore: Datastore): Promise<Habit> {
-    return get<Habit>(getHabitKind(key.userName, key.habitId), datastore);
+export interface HabitRepository {
+    getHabit(key: { userName: string; habitId: string }): Promise<Habit>;
+
+    getAllHabits(userName: string): Promise<Habit[]>;
+
+    saveHabit(habit: { userName: string; habitId: string; data: Habit }): Promise<Habit>;
+
+    removeHabit(key: { userName: string; habitId: string }): Promise<boolean>;
+
+    removeAllHabit(userName: string): Promise<boolean>;
 }
 
-export async function getAllHabits(userName: string, datastore: Datastore): Promise<Habit[]> {
-    return getMany<Habit>(getHabitsKind(userName), datastore);
-}
+export class FirestoreHabitRepository implements HabitRepository {
+    constructor(private readonly datastore: Datastore) {}
 
-export async function saveHabit(
-    habit: { userName: string; habitId: string; data: Habit },
-    datastore: Datastore,
-): Promise<Habit> {
-    return save<Habit>(getHabitKind(habit.userName, habit.habitId), habit.data, datastore);
-}
+    async getHabit(key: { userName: string; habitId: string }): Promise<Habit> {
+        return get<Habit>(getHabitKind(key.userName, key.habitId), this.datastore);
+    }
 
-export async function removeHabit(key: { userName: string; habitId: string }, datastore: Datastore): Promise<boolean> {
-    return remove(getHabitKind(key.userName, key.habitId), datastore);
-}
+    async getAllHabits(userName: string): Promise<Habit[]> {
+        return getMany<Habit>(getHabitsKind(userName), this.datastore);
+    }
 
-export async function removeAllHabit(userName: string, datastore: Datastore): Promise<boolean> {
-    return remove(getHabitsKind(userName), datastore);
+    async saveHabit(habit: { userName: string; habitId: string; data: Habit }): Promise<Habit> {
+        return save<Habit>(getHabitKind(habit.userName, habit.habitId), habit.data, this.datastore);
+    }
+
+    async removeHabit(key: { userName: string; habitId: string }): Promise<boolean> {
+        return remove(getHabitKind(key.userName, key.habitId), this.datastore);
+    }
+
+    async removeAllHabit(userName: string): Promise<boolean> {
+        return remove(getHabitsKind(userName), this.datastore);
+    }
 }

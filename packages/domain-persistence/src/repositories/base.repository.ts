@@ -23,6 +23,12 @@ export async function getMany<T>(kind: Kind, datastore: Datastore): Promise<T[]>
     return datastore.get(key).then(entities => entities);
 }
 
+export async function hasByKind(kind: Kind, datastore: Datastore): Promise<boolean> {
+    return get(kind, datastore)
+        .then(() => true)
+        .catch(() => false);
+}
+
 export type ReadyQuery<T> = (kind: Kind, datastore: Datastore, queryOptions: RunQueryOptions) => Promise<T>;
 
 /**

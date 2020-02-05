@@ -11,17 +11,26 @@ export function getHabitHistoriesKind(habitId: string): string[] {
     return [HabitStaticKind, habitId, HabitHistoryStaticKind];
 }
 
-export async function getAllHabitHistories(habitId: string, datastore: Datastore): Promise<HabitHistory[]> {
-    return getMany<HabitHistory>(getHabitHistoriesKind(habitId), datastore);
+export interface HabitHistoryRepository {
+    getAllHabitHistories(habitId: string): Promise<HabitHistory[]>;
+
+    saveHabitHistory(history: { habitId: string; data: HabitHistory }): Promise<HabitHistory>;
+
+    removeAllHabitHistory(habitId: string): Promise<boolean>;
 }
 
-export async function saveHabitHistory(
-    history: { habitId: string; data: HabitHistory },
-    datastore: Datastore,
-): Promise<HabitHistory> {
-    return save<HabitHistory>(getHabitHistoriesKind(history.habitId), history.data, datastore);
-}
+export class FirestoreHabitHistoryRepository implements HabitHistoryRepository {
+    constructor(private readonly datastore: Datastore) {}
 
-export async function removeAllHabitHistory(habitId: string, datastore: Datastore): Promise<boolean> {
-    return remove(getHabitHistoriesKind(habitId), datastore);
+    async getAllHabitHistories(habitId: string): Promise<HabitHistory[]> {
+        return getMany<HabitHistory>(getHabitHistoriesKind(habitId), this.datastore);
+    }
+
+    async saveHabitHistory(history: { habitId: string; data: HabitHistory }): Promise<HabitHistory> {
+        return save<HabitHistory>(getHabitHistoriesKind(history.habitId), history.data, this.datastore);
+    }
+
+    async removeAllHabitHistory(habitId: string): Promise<boolean> {
+        return remove(getHabitHistoriesKind(habitId), this.datastore);
+    }
 }
