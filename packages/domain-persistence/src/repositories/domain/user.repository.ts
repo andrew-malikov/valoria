@@ -1,7 +1,7 @@
 import { Datastore } from '@google-cloud/datastore';
 
-import { User, UserStaticKind } from '../models/user';
-import { get, save, remove, hasByKind } from './base.repository';
+import { User, UserStaticKind } from '../../models/user';
+import { get, save, remove, hasByKind } from '../base.repository';
 
 export function getUserKind(name: string): string[] {
     return [UserStaticKind, name];

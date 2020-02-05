@@ -1,8 +1,8 @@
 import { Datastore } from '@google-cloud/datastore';
 
-import { HabitStaticKind } from '../models/habit';
-import { HabitHistoryStaticKind, HabitHistory } from '../models/habit-history';
-import { save, getMany, remove } from './base.repository';
+import { HabitStaticKind } from '../../models/habit';
+import { HabitHistoryStaticKind, HabitHistory } from '../../models/habit-history';
+import { save, getMany, remove } from '../base.repository';
 
 /**
  * @param {string} habitId related to Habitica Habit
