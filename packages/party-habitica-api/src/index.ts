@@ -1,7 +1,5 @@
 export * from './models/domain/task';
 
-export * from './services/domain/tasks.service';
-
-export * from './services/habitica.service';
+export * from './services';
 
 export * from './factories/habitica.factory';
