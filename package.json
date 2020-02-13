@@ -14,20 +14,20 @@
         "prestart": "lerna run lib-build --stream"
     },
     "dependencies": {
-        "fp-ts": "^2.4.1",
-        "got": "^10.2.2",
+        "fp-ts": "^2.4.4",
+        "got": "^10.5.5",
+        "jose": "^1.22.2",
         "rest-api-url-builder": "^1.2.2",
-        "@google-cloud/datastore": "^5.0.3",
-        "generate-password": "^1.5.0"
+        "@google-cloud/datastore": "^5.0.5"
     },
     "devDependencies": {
         "typescript": "^3.7.5",
         "lerna": "^3.20.2",
         "eslint": "^6.8.0",
-        "@typescript-eslint/eslint-plugin": "^2.16.0",
-        "@typescript-eslint/parser": "^2.16.0",
+        "@typescript-eslint/eslint-plugin": "^2.19.2",
+        "@typescript-eslint/parser": "^2.19.2",
         "eslint-plugin-prettier": "^3.1.2",
-        "eslint-config-prettier": "^6.9.0",
+        "eslint-config-prettier": "^6.10.0",
         "prettier": "^1.19.1"
     }
 }
