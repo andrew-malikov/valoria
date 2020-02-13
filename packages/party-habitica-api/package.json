@@ -1,6 +1,6 @@
 {
     "name": "@party/habitica-api",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "description": "a Habitica client library",
     "main": "./lib/index.js",
     "module": "./lib-esm/index.js",
@@ -11,12 +11,12 @@
         "lib-build": "tsc && tsc --build tsconfig.esm.json"
     },
     "peerDependencies": {
-        "fp-ts": "^2.4.1",
-        "got": "^10.2.2",
+        "fp-ts": "^2.4.4",
+        "got": "^10.5.5",
         "rest-api-url-builder": "^1.2.2"
     },
     "devDependencies": {
-        "@types/node": "^13.1.8",
+        "@types/node": "^13.7.1",
         "typescript": "^3.7.5"
     }
 }
