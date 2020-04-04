@@ -1,30 +1,23 @@
-import { fold, Either } from 'fp-ts/lib/Either';
-
-import { Login } from '../shared';
-
 type PersistUserDependencies = {
-    getLoginFromToken: (token: string) => Either<Error, Login>;
     hasUser: (username: string) => Promise<boolean>;
     saveUser: (username: string) => Promise<boolean>;
 };
 
-export const persistUser = ({ getLoginFromToken, hasUser, saveUser }: PersistUserDependencies) => (token: string) => {
-    return new Promise((resolve, reject) => {
-        fold(
-            // TODO: use downlevel errors in new errors
-            error => reject(new Error('Token is not valid')),
-            ({ username }: Login) =>
-                resolve(
-                    hasUser(username)
-                        .then(isExist => {
-                            if (isExist) {
-                                return;
-                            }
+export const persistUser = ({ hasUser, saveUser }: PersistUserDependencies) => (username: string) => {
+    return (
+        hasUser(username)
+            .then(isExist => {
+                if (isExist) {
+                    return;
+                }
 
-                            return saveUser(username);
-                        })
-                        .catch(error => new Error("Can't persist the user")),
-                ),
-        )(getLoginFromToken(token));
-    });
+                return saveUser(username);
+            })
+            // TODO: use a downlevel error in the new error
+            .catch(error => new Error("Can't persist the user"))
+    );
+};
+
+export const removeUser = ({ removeUser }: { removeUser: (username) => Promise<boolean> }) => (username: string) => {
+    return removeUser(username);
 };
